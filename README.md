@@ -16,13 +16,13 @@ Ultralytics YOLOv8 is a machine learning model that predicts bounding boxes, seg
 
 ![](./resource/pipeline.png)
 
-| Node Name                                                    | Function                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [qrb ros camera](https://github.com/qualcomm-qrb-ros/qrb_ros_camera) | Qualcomm ROS 2 package that captures images with parameters and publishes them to ROS topics. |
-| [yolo preprocess](https://github.com/qualcomm-qrb-ros/qrb_ros_tensor_process) | Subscribes to image data, reshapes/resizes it, and republishes it to a downstream topic. |
-| [qrb ros nn interface](https://github.com/qualcomm-qrb-ros/qrb_ros_nn_inference) | Loads a trained AI model, receives preprocessed images, performs inference, and publishes results. |
-| [yolo postprocess](https://github.com/qualcomm-qrb-ros/qrb_ros_tensor_process) | Matches inference output with yolo label files               |
-| [yolo overlay](https://github.com/qualcomm-qrb-ros/qrb_ros_tensor_process) | Subscribes yolo postprocess and image data, show the object detect results with ros topic |
+| Node Name            | Function                                                     |
+| -------------------- | ------------------------------------------------------------ |
+| qrb ros camera       | Qualcomm ROS 2 package that captures images with parameters and publishes them to ROS topics. |
+| yolo preprocess      | Subscribes to image data, reshapes/resizes it, and republishes it to a downstream topic. |
+| qrb ros nn interface | Loads a trained AI model, receives preprocessed images, performs inference, and publishes results. |
+| yolo postprocess     | Matches inference output with yolo label files               |
+| yolo overlay         | Subscribes yolo postprocess and image data, show the object detect results with ros topic |
 
 ## 🔎 Table of contents
 
@@ -50,18 +50,7 @@ Ultralytics YOLOv8 is a machine learning model that predicts bounding boxes, seg
 
 <table >
   <tr>
-    <th>Development Hardware</th>
-     <td>Qualcomm Dragonwing™ IQ-9075 EVK</td>
-     <td>Qualcomm Dragonwing™ IQ-8275 EVK</td>
-  </tr>
-  <tr>
-    <th>Hardware Overview</th>
-    <th><a href="https://www.qualcomm.com/products/internet-of-things/industrial-processors/iq9-series/iq-9075"><img src="https://s7d1.scene7.com/is/image/dmqualcommprod/dragonwing-IQ-9075-EVK?$QC_Responsive$&fmt=png-alpha" width="160"></a></th>
-    <th>coming soon...</th>
-  </tr>
-  <tr>
     <th>GMSL Camera Support</th>
-    <td>LI-VENUS-OX03F10-OAX40-GM2A-118H(YUV)</td>
     <td>LI-VENUS-OX03F10-OAX40-GM2A-118H(YUV)</td>
   </tr>
 </table>
@@ -69,29 +58,6 @@ Ultralytics YOLOv8 is a machine learning model that predicts bounding boxes, seg
 
 
 
-
-## ✨ Installation
-
-> [!IMPORTANT]
-> **PREREQUISITES**: The following steps need to be run on **Qualcomm Ubuntu** and **ROS Jazzy**.<br>
-> Reference [Install Ubuntu on Qualcomm IoT Platforms](https://ubuntu.com/download/qualcomm-iot) and [Install ROS Jazzy](https://docs.ros.org/en/jazzy/index.html) to setup environment. <br>
-> For Qualcomm Linux, please check out the [Qualcomm Intelligent Robotics Product SDK](https://docs.qualcomm.com/bundle/publicresource/topics/80-70018-265/introduction_1.html?vproduct=1601111740013072&version=1.4&facet=Qualcomm%20Intelligent%20Robotics%20Product%20(QIRP)%20SDK) documents.
-
-Add Qualcomm IOT PPA for Ubuntu:
-
-```
-sudo add-apt-repository ppa:ubuntu-qcom-iot/qcom-ppa
-sudo add-apt-repository ppa:ubuntu-qcom-iot/qirp
-sudo apt update
-```
-
-
-
-Install Debian package:
-
-```
-sudo apt install ros-jazzy-sample-object-segmentation
-```
 
 ## 🚀 Usage
 
@@ -134,7 +100,7 @@ mv coco.ymal /opt/
 
 source /opt/ros/jazzy/setup.bash
 
-ros2 launch sample_object_segmentation launch_with_qrb_ros_camera.py  model:=<the device model>
+ros2 launch sample_object_segmentation launch_with_qrb_ros_camera_IQ10.py  model:=<the device model>
 ```
 
 The output for these commands:
@@ -190,37 +156,6 @@ ubuntu@ubuntu:/opt$ ros2 launch sample_object_segmentation launch_with_qrb_ros_c
 ```
 
 Then you can check ROS topics with the name`/yolo_segment_overlay` in  rviz2
-
-</details>
-
-## 👨‍💻 Build from source
-
-<details>
-  <summary>Build from source details</summary>
-Install dependencies
-
-```
-sudo apt install ros-jazzy-rclpy \
-  ros-jazzy-sensor-msgs \
-  ros-jazzy-std-msgs \
-  ros-jazzy-cv-bridge \
-  ros-jazzy-ament-index-python \
-  ros-jazzy-qrb-ros-tensor-list-msgs \
-  python3-opencv \
-  python3-numpy \
-  ros-jazzy-image-publisher \
-  ros-jazzy-qrb-ros-nn-inference \
-  ros-jazzy-qrb-ros-camera \
-```
-
-Download the source code and build with colcon
-
-```bash
-source /opt/ros/jazzy/setup.bash
-git clone https://github.com/qualcomm-qrb-ros/qrb_ros_samples.git
-cd ai_vision/sample_sample_segmentation
-colcon build
-```
 
 </details>
 
