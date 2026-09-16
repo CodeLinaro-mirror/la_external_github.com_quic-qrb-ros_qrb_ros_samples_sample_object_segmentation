@@ -71,11 +71,7 @@ Reference the [qrb_ros_tensor_process](https://github.com/qualcomm-qrb-ros/qrb_r
 ```
 #when download yolo model , please using qnn_context_binary and device like bellow 
 
-#for IQ-8275  
-python3 -m qai_hub_models.models.yolov8_seg.export --target-runtime tflite  --device "QCS8275 (Proxy)"
-
-#for IQ-9075
-python3 -m qai_hub_models.models.yolov8_seg.export --target-runtime tflite  --device "QCS9075 (Proxy)"
+python3 -m qai_hub_models.models.yolov8_seg.export --target-runtime qnn_context_binary  --device "QCS9075 (Proxy)"
 ```
 
 Find label file like bellow commands
@@ -94,7 +90,7 @@ Run the sample env on device
 ```bash
 #Prepare above model and move to default model path
 mkdir /opt/model/
-mv yolov8_seg.tflite /opt/model/
+mv yolov8_seg.bin /opt/model/
 
 mv coco.ymal /opt/
 
@@ -110,7 +106,7 @@ ros2 launch sample_object_segmentation launch_with_qrb_ros_camera_IQ10.py  model
 The output for these commands:
 
 ```
-ubuntu@ubuntu:/opt$ ros2 launch sample_object_segmentation launch_with_qrb_ros_camera.py model:=/opt/model/yolov8_seg_qcs9075.tflite
+ubuntu@ubuntu:/opt$ ros2 launch sample_object_segmentation launch_with_qrb_ros_camera.py model:=/opt/model/yolov8_seg.bin
 [INFO] [launch]: All log files can be found below /home/ubuntu/.ros/log/2025-11-13-07-35-16-363743-ubuntu-20397
 [INFO] [launch]: Default logging verbosity is set to INFO
 [INFO] [component_container-1]: process started with pid [20421]
